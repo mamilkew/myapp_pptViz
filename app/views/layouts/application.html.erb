@@ -9,9 +9,10 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload', debug: true %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', debug: true %>
-
     <%= stylesheet_link_tag 'bootstrap.min.css', debug: true %>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <!-- 1  TimelineJS -->
+    <link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
 
   </head>
   <body>
@@ -68,6 +69,7 @@
   <!-- Placed at the end of the document so the pages load faster -->
   <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', debug: true %>
   <%= javascript_include_tag 'bootstrap.min.js', debug: true %>
 
   </body>

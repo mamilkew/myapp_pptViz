@@ -18,13 +18,13 @@ html {
     position: relative;
     min-height: 100%;
 }
-body { padding-top: 100px; }
+body {
+    padding-top: 100px;
+    padding-bottom: 60px;
+}
 table, td, th { vertical-align: middle; border: none; }
 th { border-bottom: 1px solid #DDD; }
 
-body {
-    margin-bottom: 60px;
-}
 .starter-template {
     padding: 3rem 1.5rem;
     text-align: center;
