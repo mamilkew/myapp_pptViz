@@ -13,6 +13,8 @@
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <!-- 1  TimelineJS -->
     <link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+    <!-- 2 -->
+    <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
 
   </head>
   <body>
@@ -50,11 +52,15 @@
   </nav>
 
   <main role="main" class="container">
-
     <div class="starter-template">
       <h1>Bootstrap starter template</h1>
       <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
     </div>
+    <% if flash[:error] %>
+      <div id="error">
+        <br><%= flash[:error] %>
+      </div>
+    <% end %>
     <%= yield %>
   </main><!-- /.container -->
 
