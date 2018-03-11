@@ -29,12 +29,12 @@ class PagesController < ApplicationController
 #     lines = CSV.open(Rails.root + "/Users/milkk/Desktop/civil.csv",{:col_sep => "\|"}).readlines
 # # remove first entry of the lines array
 #     keys = lines.shift
-
-    lines = CSV.open(Rails.root + "/Users/milkk/Desktop/civil.csv").readlines
+  f_name = "multi"
+    lines = CSV.open(Rails.root + "/Users/milkk/Desktop/#{f_name}.csv").readlines
     # lines.shift # remove first entry of the lines array
     keys = lines.delete lines.first
 
-    File.open("public/assets/civil.json", "w") do |f|
+    File.open("public/assets/#{f_name}.json", "w") do |f|
       data = lines.map do |values|
         is_int(values) ? values.to_i : values.to_s
         Hash[keys.zip(values)]
