@@ -9,13 +9,6 @@ class PagesController < ApplicationController
   end
 
   def convertcsv
-    # require 'csv'
-    # customers = CSV.read('civil.csv')
-    # CSV.foreach('/civil.csv') do |row|
-    #   puts row.inspect
-    # end
-    #
-
     #!/usr/bin/env ruby
 
     # Parse CSV files and convert them to JSON.
@@ -41,43 +34,74 @@ class PagesController < ApplicationController
     # lines.shift # remove first entry of the lines array
     keys = lines.delete lines.first
 
-    File.open("civil.json", "w") do |f|
+    File.open("public/assets/civil.json", "w") do |f|
       data = lines.map do |values|
         is_int(values) ? values.to_i : values.to_s
         Hash[keys.zip(values)]
       end
 
-      def do_hash_children(array, key)
-        return Hash[[:children].zip(array[key])]
-      end
-
-      # dep = ""
-      # fos = ""
+      count_fos = 0
+      count_ra = 0
       modifier = []
       data.each do |values|
-        # dep, fos, ra, kw1 = values.values_at('Department','FoS','Research Areas','Key words1')
-        # ((modifier[dep] ||= {})[fos] ||= {})[ra] ||= kw1
-
-        # modifier[dep][fos][ra] = kw1
         if !values['Department'].nil?
           modifier.push(Hash[[:name, :children].zip(
-              [values['Department'], [Hash[[:name, :children].zip([values['FoS'], [Hash[[:name].zip([values['Research Areas']])]]])]]]
+              [values['Department'], [Hash[[:name, :children].zip([values['FoS'], [Hash[[:name, :children].zip([values['Research Areas'], [Hash[[:name].zip([values['Key words1']])]]])]]])]]]
           )])
-          # dep = values['Department']
-          # fos = values['FoS']
+          i = 2
+          if !values['Key words2'].nil?
+            values.each {|k, v|
+              if k == 'Key words' + i.to_s && !v.nil?
+                modifier[0][:children][count_fos][:children][count_ra][:children].push(
+                    Hash[[:name].zip([v])
+                    ])
+                i += 1
+              end
+            }
+          end
 
-        elsif !values['FoS'].nil? && !values['Research Areas'].nil?
+        elsif !values['FoS'].nil?
           modifier[0][:children].push(
               Hash[[:name, :children].zip(
                   [values['FoS'], [Hash[[:name, :children].zip([values['Research Areas'], [Hash[[:name].zip([values['Key words1']])]]])]]]
               )]
           )
+          count_fos += 1
+          count_ra = 0
+          i = 2
+          if !values['Key words2'].nil?
+            values.each {|k, v|
+              if k == 'Key words' + i.to_s && !v.nil?
+                modifier[0][:children][count_fos][:children][count_ra][:children].push(
+                    Hash[[:name].zip([v])
+                    ])
+                i += 1
+              end
+            }
+          end
 
-
+        elsif !values['Research Areas'].nil?
+          modifier[0][:children][count_fos][:children].push(
+              Hash[[:name, :children].zip(
+                  [values['Research Areas'], [Hash[[:name].zip([values['Key words1']])]]]
+              )]
+          )
+          count_ra += 1
+          i = 2
+          if !values['Key words2'].nil?
+            values.each {|k, v|
+              if k == 'Key words' + i.to_s && !v.nil?
+                modifier[0][:children][count_fos][:children][count_ra][:children].push(
+                    Hash[[:name].zip([v])
+                    ])
+                i += 1
+              end
+            }
+          end
         end
       end
 
-      f.puts JSON.pretty_generate(modifier)
+      f.puts JSON.pretty_generate(modifier[0])
       respond_to do |format|
         format.html { redirect_to pages_info_path, notice: 'Successfully.' }
       end
