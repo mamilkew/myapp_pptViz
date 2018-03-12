@@ -56,6 +56,10 @@
       <h1>Bootstrap starter template</h1>
       <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
     </div>
+    <% if flash[:notice] %>
+      <div id="notice"><%= flash[:notice] %></div>
+    <% end %>
+
     <% if flash[:error] %>
       <div id="error">
         <br><%= flash[:error] %>
