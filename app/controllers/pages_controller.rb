@@ -106,7 +106,9 @@ class PagesController < ApplicationController
         format.html { redirect_to pages_info_path, notice: 'Successfully.' }
       end
     end
+  end
 
+  def country_map
 
   end
 end
