@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   get 'pages/info'
   get 'pages/home'
-  get 'pages/help'
+  get 'pages/timeline'
   get 'pages/country_map'
   get 'pages/convertcsv', to: 'pages#convertcsv'
 
