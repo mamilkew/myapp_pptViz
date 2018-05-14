@@ -197,49 +197,36 @@
 
                 .each(function (d) {
                     if (d.name!=undefined) {
-                        var lines = wordwrap2(d.name);
-                        var space_line = ".35em";
+                        var lines = wordwrap2(d.name)
                         if (lines.length % 2 == 0) {
                             for (var i = 0; i < lines.length; i++) {
                                 d3.select(this).append("tspan")
-                                    .attr("dy",space_line)
+                                    .attr("dy",13)
                                     .attr("x",function(d) {
-                                        return d.children || d._children ? -10 : 10; })
+                                        return d.children1 || d._children1 ? -10 : 10; })
                                     .text(lines[i]+" "+lines[i+1]);
                                 i++;
-                                space_line = "1em";
                             }
                         }
                         else {
-                            if (lines.length == 1){
-                                d3.select(this).append("tspan")
-                                    .attr("dy",space_line)
-                                    .attr("x",function(d) {
-                                        return d.children || d._children ? -10 : 10; })
-                                    .text(d.name);
-                            }
-                            else {
-                                for (var i = 0; i < lines.length; i++) {
-                                    if (i < lines.length-3) {
-                                        d3.select(this).append("tspan")
-                                            .attr("dy",space_line)
-                                            .attr("x",function(d) {
-                                                return d.children || d._children ? -10 : 10; })
-                                            .text(lines[i]+" "+lines[i+1]);
-                                        i++;
-                                        space_line = "1em";
-                                    }
-                                    else {
-                                        d3.select(this).append("tspan")
-                                            .attr("dy",space_line)
-                                            .attr("x",function(d) {
-                                                return d.children || d._children ? -10 : 10; })
-                                            .text(lines[i]+" "+lines[i+1]+" "+lines[i+2]);
-                                        break
-                                    }
+                            for (var i = 0; i < lines.length; i++) {
+                                if (i < lines.length-3) {
+                                    d3.select(this).append("tspan")
+                                        .attr("dy",13)
+                                        .attr("x",function(d) {
+                                            return d.children1 || d._children1 ? -10 : 10; })
+                                        .text(lines[i]+" "+lines[i+1]);
+                                    i++;
+                                }
+                                else {
+                                    d3.select(this).append("tspan")
+                                        .attr("dy",13)
+                                        .attr("x",function(d) {
+                                            return d.children1 || d._children1 ? -10 : 10; })
+                                        .text(lines[i]+" "+lines[i+1]+" "+lines[i+2]);
+                                    break
                                 }
                             }
-
                         }
 
                     }
